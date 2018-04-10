@@ -1,52 +1,60 @@
 {
-	"name": "mblet-syntax-cpp-syntax-cpp",
+	"name"       : "mblet-syntax-cpp-syntax-cpp",
 	"displayName": "mblet-syntax-cpp",
 	"description": "Add simply syntax for C++ language",
-	"version": "1.0.0",
-	"publisher": "mblet",
-	"engines": { "vscode": "*" },
-	"scripts": {
+	"version"    : "1.0.0",
+	"publisher"  : "mblet",
+	"engines"    : { "vscode": "*" },
+	"scripts"    : {
 		"update-grammar": "node ./extentions.default/cpp/build/update-grammars.js"
 	},
 	"contributes": {
+        "themes": [
+			{
+				"id"     : "Default Dark+ mblet",
+				"label"  : "Dark+ (default dark) (mblet)",
+				"uiTheme": "vs-dark",
+				"path"   : "./themes/mblet.json"
+			}
+		],
 		"languages": [{
-			"id": "c",
-			"extensions": [ ".c"],
-			"aliases": [ "C", "c" ],
+			"id"           : "c",
+			"extensions"   : [ ".c"],
+			"aliases"      : [ "C", "c" ],
 			"configuration": "./extentions.default/cpp/language-configuration.json"
 		},
 		{
-			"id": "cpp",
-			"extensions": [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
-			"aliases": [ "C++", "Cpp", "cpp"],
+			"id"           : "cpp",
+			"extensions"   : [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
+			"aliases"      : [ "C++", "Cpp", "cpp"],
 			"configuration": "./extentions.default/cpp/language-configuration.json"
 		}],
 		"grammars": [{
-			"language": "c",
+			"language" : "c",
 			"scopeName": "source.c",
-			"path": "./extentions.default/cpp/syntaxes/c.tmLanguage.json"
+			"path"     : "./extentions.default/cpp/syntaxes/c.tmLanguage.json"
 		},
 		{
-			"language": "cpp",
+			"language" : "cpp",
 			"scopeName": "source.cpp",
-			"path": "./extentions.default/cpp/syntaxes/cpp.tmLanguage.json"
+			"path"     : "./extentions.default/cpp/syntaxes/cpp.tmLanguage.json"
 		},
 		{
-			"language": "cpp",
+			"language" : "cpp",
 			"scopeName": "meta.syntax",
-			"path": "./syntaxes/mblet-cpp.tmLanguage.json"
+			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
 		},
 		{
 			"scopeName": "source.c.platform",
-			"path": "./extentions.default/cpp/syntaxes/platform.tmLanguage.json"
+			"path"     : "./extentions.default/cpp/syntaxes/platform.tmLanguage.json"
 		}],
 		"snippets": [{
 			"language": "c",
-			"path": "./extentions.default/cpp/snippets/c.json"
+			"path"    : "./extentions.default/cpp/snippets/c.json"
 		},
 		{
 			"language": "cpp",
-			"path": "./extentions.default/cpp/snippets/cpp.json"
+			"path"    : "./extentions.default/cpp/snippets/cpp.json"
 		}]
 	}
 }
