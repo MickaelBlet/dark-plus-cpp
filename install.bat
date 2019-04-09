@@ -1,1 +1,0 @@
-mklink /j extentions.default "%PROGRAMFILES%\Microsoft VS Code\resources\app\extensions"

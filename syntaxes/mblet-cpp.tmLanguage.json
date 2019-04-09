@@ -1,88 +1,106 @@
 {
-	"information_for_contributors": [
-		""
-	],
-	"version"  : "",
-	"name"     : "syntax C++",
-	"scopeName": "meta.syntax",
-	"patterns" : [
+    "information_for_contributors": [
+        ""
+    ],
+    "version"  : "",
+    "name"     : "syntax C++",
+    "scopeName": "mblet.syntax",
+    "patterns" : [
         {
             "include": "#operator"
         },
-		{
-			"include": "#access"
+        {
+            "include": "#parent"
         },
-		{
-			"include": "source.cpp"
-		},
-		{
-			"include": "#return-types"
-		},
-		{
-			"include": "#return-types-operator"
-		},
-		{
-			"include": "#variable-types"
-		},
-		{
-			"match": "\\bstd\\b",
-			"name" : "mblet_std.syntax"
+        {
+            "include": "#access"
+        },
+        {
+            "include": "source.cpp"
+        },
+        {
+            "include": "#return-types"
+        },
+        {
+            "include": "#return-types-operator"
+        },
+        {
+            "include": "#variable-types"
         }
     ],
-	"repository": {
-        "operator":{
+    "repository": {
+        "operator": {
             "name" : "mblet_operator.syntax",
             "match": "(?!//|/\\*)(\\+|\\-|\\*|\\/|\\%|\\!|\\=|&&|\\|\\|)"
         },
-		"access": {
-			"captures": {
-				"1": {
-					"name": "mblet_doubleDoubleDot.syntax"
-				},
-				"2": {
-					"name": "variable.other.member.syntax"
-				}
-			},
-			"match": "(::)\\s*(?!(?:catch|operator|try|throw|using))(([a-zA-Z_][a-zA-Z_0-9]*)\\b(?!\\s*\\())?"
+        "parent": {
+            "captures": {
+                "1": {
+                    "name": "entity.name.type.cpp"
+                },
+                "2": {
+                    "name": "mblet_doubleDoubleDot.syntax"
+                },
+                "3": {
+                    "name": "variable.other.member.syntax"
+                }
+            },
+            "match": "([a-zA-Z_][a-zA-Z_0-9]*)\\b\\s*(::)\\s*(?!(?:catch|operator|try|throw|using))(([a-zA-Z_][a-zA-Z_0-9]*)\\b(?!\\s*\\())?"
         },
-		"return-types": {
-			"captures": {
-				"1": {
-					"name": "entity.name.type.cpp"
-				},
-				"2": {
-					"name": "storage.modifier.c"
-				},
-				"3": {
-					"name": "entity.name.function.cpp"
-				}
-			},
-            "match": "((?:(?:(?:[a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s)*(?:&|&&)?\\s*\\**\\s*((?!while|for|do|if|else|switch|catch|enumerate|r?iterate)[A-Za-z_][A-Za-z0-9_:]*)(?:\\s*\\()"
-		},
-		"return-types-operator": {
-			"captures": {
-				"1": {
-					"name": "entity.name.type.cpp"
-				},
-				"2": {
-					"name": "storage.modifier.c"
-				},
-				"3": {
-					"name": "keyword.control.cpp"
-				}
-			},
+        "access": {
+            "captures": {
+                "1": {
+                    "name": "mblet_doubleDoubleDot.syntax"
+                },
+                "2": {
+                    "name": "variable.other.member.syntax"
+                }
+            },
+            "match": "(::)\\s*(?!(?:catch|operator|try|throw|using))(([a-zA-Z_][a-zA-Z_0-9]*)\\b(?!\\s*\\())?"
+        },
+        "return-types": {
+            "captures": {
+                "1": {
+                    "name": "entity.name.type.cpp"
+                },
+                "2": {
+                    "name": "storage.modifier.c"
+                },
+                "3": {
+                    "name": "entity.name.function.cpp"
+                }
+            },
+            "match": "((?:(?:(?:[a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s)*(?:&|&&)?\\s*\\**\\s*((?:(?!while|for|do|if|else|switch|catch|enumerate|r?iterate)\\b)[A-Za-z_][A-Za-z0-9_:]*)(?:\\s*\\()"
+        },
+        "return-types-operator": {
+            "captures": {
+                "1": {
+                    "name": "entity.name.type.cpp"
+                },
+                "2": {
+                    "name": "storage.modifier.c"
+                },
+                "3": {
+                    "name": "keyword.control.cpp"
+                }
+            },
             "match": "((?:(?:(?:[a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s)*(?:&|&&)?\\s*\\**\\s*(catch|operator|try|throw|using)"
-		},
-		"variable-types": {
-			"captures": {
-				"1": {
-					"name": "entity.name.type.cpp"
-				},
-				"2": {
-					"name": "storage.modifier.c"
+        },
+        "variable-types": {
+            "captures": {
+                "1": {
+                    "name": "entity.name.type.cpp"
+                },
+                "2": {
+                    "name": "storage.modifier.c"
+                }
+            },
+            "match": "(?:(?:([a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*)(?:(const|extern|register|restrict|static|volatile|inline)\\s+)*(?:&|&&)?\\s*\\**\\s*(?:[A-Za-z_][A-Za-z0-9_]*)\\b",
+            "patterns": [
+				{
+					"include": "#meta.function.c"
 				}
-			},
-            "match": "(?:(?:(?:([a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s*)*(?:&|&&)?\\s*\\**\\s*(?:[A-Za-z_][A-Za-z0-9_]*)\\b"
-		}
-	}
+			]
+        }
+    }
 }

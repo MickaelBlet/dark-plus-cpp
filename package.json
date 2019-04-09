@@ -5,9 +5,6 @@
 	"version"    : "1.0.0",
 	"publisher"  : "mblet",
 	"engines"    : { "vscode": "*" },
-	"scripts"    : {
-		"update-grammar": "node ./extentions.default/cpp/build/update-grammars.js"
-	},
 	"contributes": {
         "themes": [
 			{
@@ -20,41 +17,27 @@
 		"languages": [{
 			"id"           : "c",
 			"extensions"   : [ ".c"],
-			"aliases"      : [ "C", "c" ],
-			"configuration": "./extentions.default/cpp/language-configuration.json"
+			"aliases"      : [ "C", "c" ]
 		},
 		{
 			"id"           : "cpp",
 			"extensions"   : [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
-			"aliases"      : [ "C++", "Cpp", "cpp"],
-			"configuration": "./extentions.default/cpp/language-configuration.json"
+			"aliases"      : [ "C++", "Cpp", "cpp"]
 		}],
 		"grammars": [{
 			"language" : "c",
 			"scopeName": "source.c",
-			"path"     : "./extentions.default/cpp/syntaxes/c.tmLanguage.json"
+			"path"     : "./syntaxes/c.tmLanguage.json"
 		},
 		{
 			"language" : "cpp",
 			"scopeName": "source.cpp",
-			"path"     : "./extentions.default/cpp/syntaxes/cpp.tmLanguage.json"
+			"path"     : "./syntaxes/cpp.tmLanguage.json"
 		},
 		{
 			"language" : "cpp",
-			"scopeName": "meta.syntax",
+			"scopeName": "mblet.syntax",
 			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
-		},
-		{
-			"scopeName": "source.c.platform",
-			"path"     : "./extentions.default/cpp/syntaxes/platform.tmLanguage.json"
-		}],
-		"snippets": [{
-			"language": "c",
-			"path"    : "./extentions.default/cpp/snippets/c.json"
-		},
-		{
-			"language": "cpp",
-			"path"    : "./extentions.default/cpp/snippets/cpp.json"
 		}]
 	}
 }
