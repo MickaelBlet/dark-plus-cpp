@@ -1,4 +1,3 @@
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 class Parser
@@ -17,23 +16,15 @@ class Parser
 
     init()
     {
-        this.options = { color: "#999999", backgroundColor: "transparent", fontStyle: "italic" };
+        this.contributions = vscode.workspace.getConfiguration('mblet-syntax');
+        this.options = this.contributions.parameters;
         this.decoration = vscode.window.createTextEditorDecorationType(this.options);
-    }
-
-    setCharAt(str,index,chr)
-    {
-        if(index > str.length-1) return str;
-        return str.substr(0,index) + chr + str.substr(index+1);
     }
 
     setRange(str,start,end)
     {
-        for (let i = start ; i < end ; i++)
-        {
-            str = this.setCharAt(str, i, ' ');
-        }
-        return str;
+        let size = end - start;
+        return str.substr(0, start) + ' '.repeat(size) + str.substr(start + size);
     }
 
     replaceCommentsAndStrings(text)
@@ -41,11 +32,12 @@ class Parser
         let start = 0;
         let end = 0;
 
+        // remove '\\'
         for (let i = 1 ; i < text.length ; i++)
         {
             if (text[i] == "\\" && text[i - 1] == "\\")
             {
-                text = this.setRange(text,i - 1, i + 1);
+                text = this.setRange(text, i - 1, i + 1);
             }
         }
         let inChar = false;
@@ -240,12 +232,8 @@ class Parser
         let regexString = "(?!^\\s*)\\b([a-z_A-Z][a-z_A-Z0-9]*)\\s*(?:,|=[^,]*(?:,|$)|$)\\s*";
         let regEx = new RegExp(regexString, "gm");
 
-        let startPosition = this.activeEditor.document.positionAt(start);
-        let endPosition = this.activeEditor.document.positionAt(end);
-        let text = this.activeEditor.document.getText(new vscode.Range(startPosition, endPosition));
-        text = this.replaceCommentsAndStrings(text);
+        let text = this.text.substr(start, end - start);
         text = this.containerHidden(text);
-        // console.log((startPosition.line + 1) + " " + text);
         let search;
         while (search = regEx.exec(text))
         {
@@ -253,7 +241,6 @@ class Parser
             let startPos = this.activeEditor.document.positionAt(start + search.index);
             let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
             let range = { range: new vscode.Range(startPos, endPos) };
-            // console.log(" >>> " + search[1] + " " + startPos.line + "," + startPos.character);
             this.ranges.push(range);
         }
         return words;
@@ -266,18 +253,13 @@ class Parser
         regexString += ")\\b[^(]";
         let regEx = new RegExp(regexString, "gm");
 
-        let startPosition = this.activeEditor.document.positionAt(start);
-        let endPosition = this.activeEditor.document.positionAt(end);
-        let text = this.activeEditor.document.getText(new vscode.Range(startPosition, endPosition));
-        text = this.replaceCommentsAndStrings(text);
-        // console.log((startPosition.line + 1) + " " + text);
+        let text = this.text.substr(start, end - start);
         let search;
         while (search = regEx.exec(text))
         {
             let startPos = this.activeEditor.document.positionAt(start + search.index);
             let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
             let range = { range: new vscode.Range(startPos, endPos) };
-            // console.log(" >>> " + search[1] + " " + startPos.line + "," + startPos.character);
             this.ranges.push(range);
         }
     }
@@ -317,24 +299,13 @@ class Parser
         this.ranges.length = 0;
         // set Active Editor
         this.activeEditor = activeEditor;
-        // get full text
-        this.text = this.activeEditor.document.getText();
-        // replace by space
-        this.text = this.replaceCommentsAndStrings(this.text);
+        // replace by spaces
+        this.text = this.replaceCommentsAndStrings(this.activeEditor.document.getText());
 
         this.hightlightFunctions();
 
         // slow function
         activeEditor.setDecorations(this.decoration, this.ranges);
-    }
-
-    ApplyDecorations(activeEditor)
-    {
-        for (let tag of this.tags)
-        {
-            activeEditor.setDecorations(tag.decoration, tag.ranges);
-            tag.ranges.length = 0;
-        }
     }
 }
 exports.Parser = Parser;

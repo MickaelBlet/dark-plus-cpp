@@ -11,12 +11,6 @@
 		"onLanguage:c"
 	],
 	"contributes": {
-        "commands": [
-            {
-                "command": "extension.mbletParameters",
-                "title": "mbletParameters"
-            }
-        ],
         "themes": [
 			{
 				"id"     : "Default Dark+ mblet",
@@ -49,7 +43,21 @@
 			"language" : "cpp",
 			"scopeName": "mblet.syntax",
 			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
-		}]
+        }],
+        "configuration":{
+            "title": "mblet syntax configuration",
+            "properties": {
+                "mblet-syntax.parameters": {
+                    "type": "object",
+                    "description": "set css of parameters",
+                    "default": {
+                        "color": "#999999",
+                        "backgroundColor": "transparent",
+                        "fontStyle": "italic"
+                    }
+                }
+            }
+        }
     },
     "devDependencies": {
         "vscode": "^1.1.22"

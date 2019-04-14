@@ -1,4 +1,3 @@
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const parser_1 = require("./parser/parser");
@@ -14,27 +13,27 @@ function activate(context) {
     // context.subscriptions.push(disposable);
 
     let updateDecorations = function (useHash = false) {
-        if (!activeEditor)
+        if (!activeEditor) {
             return ;
+        }
         parser.FindFunctions(activeEditor);
     };
 
+    // first launch
     if (vscode.window.activeTextEditor) {
         activeEditor = vscode.window.activeTextEditor;
-        // Trigger first update of decorators
         triggerUpdateDecorations();
     }
 
     vscode.window.onDidChangeActiveTextEditor(editor => {
         activeEditor = editor;
-        if (editor)
-        {
+        if (editor) {
+            parser.init();
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
 
     vscode.workspace.onDidChangeTextDocument(event => {
-        // Trigger updates if the text was changed in the same document
         if (activeEditor && event.document === activeEditor.document) {
             triggerUpdateDecorations();
         }
