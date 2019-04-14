@@ -1,4 +1,3 @@
-Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const parser_1 = require("./parser/parser");
 

@@ -1,4 +1,3 @@
-Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 class Parser
 {
@@ -229,7 +228,7 @@ class Parser
     {
         let words = [];
 
-        let regexString = "(?!^\\s*)\\b([a-z_A-Z][a-z_A-Z0-9]*)\\s*(?:,|=[^,]*(?:,|$)|$)\\s*";
+        let regexString = "([a-z_A-Z0-9<>]+\\s*[&*]*\\s*)\\b([a-z_A-Z][a-z_A-Z0-9]*)\\s*(?:,|=[^,]*(?:,|$)|$)\\s*";
         let regEx = new RegExp(regexString, "gm");
 
         let text = this.text.substr(start, end - start);
@@ -237,9 +236,9 @@ class Parser
         let search;
         while (search = regEx.exec(text))
         {
-            words.push(search[1]);
-            let startPos = this.activeEditor.document.positionAt(start + search.index);
-            let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
+            words.push(search[2]);
+            let startPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
+            let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length + search[2].length);
             let range = { range: new vscode.Range(startPos, endPos) };
             this.ranges.push(range);
         }
