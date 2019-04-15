@@ -55,6 +55,11 @@
                         "backgroundColor": "transparent",
                         "fontStyle": "italic"
                     }
+                },
+                "mblet-syntax.setTimeout": {
+                    "type": "integer",
+                    "description": "set timeout after applicate decorations",
+                    "default": 200
                 }
             }
         }

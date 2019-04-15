@@ -4,6 +4,7 @@ const parser_1 = require("./parser/parser");
 function activate(context) {
     let activeEditor;
     let parser = new parser_1.Parser();
+    let contributions = vscode.workspace.getConfiguration('mblet-syntax');
 
     // add command in list
     // let disposable = vscode.commands.registerCommand('extension.mbletParameters', () => {
@@ -28,6 +29,7 @@ function activate(context) {
         activeEditor = editor;
         if (editor) {
             parser.init();
+            contributions = vscode.workspace.getConfiguration('mblet-syntax');
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
@@ -43,7 +45,7 @@ function activate(context) {
         if (timeout) {
             clearTimeout(timeout);
         }
-        timeout = setTimeout(updateDecorations, 200);
+        timeout = setTimeout(updateDecorations, contributions.setTimeout);
     }
 }
 

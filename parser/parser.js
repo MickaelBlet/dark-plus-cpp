@@ -236,6 +236,8 @@ class Parser
         let search;
         while (search = regEx.exec(text))
         {
+            if (search[0].length == 0)
+                continue ;
             words.push(search[2]);
             let startPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
             let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length + search[2].length);
@@ -247,6 +249,8 @@ class Parser
 
     hightlightParameter(words, start, end)
     {
+        if (words.length == 0)
+            return ;
         let regexString = "\\b(";
         regexString += words.join("|");
         regexString += ")\\b[^(]";
@@ -256,6 +260,8 @@ class Parser
         let search;
         while (search = regEx.exec(text))
         {
+            if (search[1].length == 0)
+                continue ;
             let startPos = this.activeEditor.document.positionAt(start + search.index);
             let endPos = this.activeEditor.document.positionAt(start + search.index + search[1].length);
             let range = { range: new vscode.Range(startPos, endPos) };
