@@ -3,96 +3,67 @@ const parser_1 = require("./parser/parser");
 
 function activate(context) {
     let activeEditor;
-    let activeEditors = new Map();
     let contributions = vscode.workspace.getConfiguration('mblet-syntax');
+    let parser = new parser_1.Parser(contributions);
 
+    // function call by triggerUpdateDecorations
     let updateDecorations = function (useHash = false) {
         if (!activeEditor) {
             return ;
         }
-
-        if (!activeEditors.has(activeEditor)) {
-            return ;
-        }
-
-        activeEditors.get(activeEditor).FindFunctions();
+        parser.updateDecorations(activeEditor);
     };
 
+    // first launch
     if (vscode.window.visibleTextEditors.length > 0) {
-        for (let i = 0 ; i < vscode.window.visibleTextEditors.length ; i++) {
-            if (!activeEditors.has(vscode.window.visibleTextEditors[i])) {
-                activeEditors.set(vscode.window.visibleTextEditors[i], new parser_1.Parser(vscode.window.visibleTextEditors[i], vscode.window.createTextEditorDecorationType(contributions.parameters)));
-            }
+        let textEditors = vscode.window.visibleTextEditors;
+        for (let i = 0 ; i < textEditors.length ; i++) {
+            parser.updateDecorations(textEditors[i]);
         }
-        let findFunction = function (value, key, map) {
-            value.FindFunctions();
-        }
-        activeEditors.forEach(findFunction);
     }
 
-    vscode.workspace.onDidChangeConfiguration(event => {
-        contributions = vscode.workspace.getConfiguration('mblet-syntax');
-        let reloadConfig = function (value, key, map) {
-            value.Reset();
-            value.init(vscode.window.createTextEditorDecorationType(contributions.parameters));
-            value.FindFunctions();
-        }
-        activeEditors.forEach(reloadConfig);
-    });
-
+    // set first activeEditor
     if (vscode.window.activeTextEditor) {
         activeEditor = vscode.window.activeTextEditor;
     }
 
+    // event configuration change
+    vscode.workspace.onDidChangeConfiguration(event => {
+        contributions = vscode.workspace.getConfiguration('mblet-syntax');
+        let textEditors = vscode.window.visibleTextEditors;
+        for (let i = 0 ; i < textEditors.length ; i++) {
+            parser.resetDecorations(textEditors[i]);
+        }
+        parser.loadConfigurations(contributions);
+        for (let i = 0 ; i < textEditors.length ; i++) {
+            parser.updateDecorations(textEditors[i]);
+        }
+    });
+
+    // event change text editor focus
     vscode.window.onDidChangeActiveTextEditor(editor => {
         activeEditor = editor;
         if (editor) {
-            if (!activeEditors.has(editor)) {
-                activeEditors.set(editor, new parser_1.Parser(editor, vscode.window.createTextEditorDecorationType(contributions.parameters)));
-            }
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
 
+    // event change all text editor
     vscode.window.onDidChangeVisibleTextEditors(editors => {
-        for (let i = 0 ; i < editors.length ; i++) {
-            if (!activeEditors.has(editors[i])) {
-                activeEditors.set(editors[i], new parser_1.Parser(editors[i], vscode.window.createTextEditorDecorationType(contributions.parameters)));
-            }
+        let textEditors = editors;
+        for (let i = 0 ; i < textEditors.length ; i++) {
+            parser.updateDecorations(textEditors[i]);
         }
-        let deleteOldText = function (value, key, map) {
-            let isValid = false;
-            for (let i = 0 ; i < editors.length ; i++) {
-                if (editors[i] === key) {
-                    isValid = true;
-                    break;
-                }
-            }
-            if (isValid === false) {
-                activeEditors.delete(key);
-            }
-        }
-        let findFunction = function (value, key, map) {
-            value.FindFunctions();
-        }
-        activeEditors.forEach(deleteOldText);
-        activeEditors.forEach(findFunction);
     });
 
-    vscode.workspace.onDidCloseTextDocument(textDocument => {
-        let deleteOldText = function (value, key, map) {
-            if (key.document === textDocument)
-                activeEditors.delete(key);
-        }
-        activeEditors.forEach(deleteOldText);
-    });
-
+    // event change text content
     vscode.workspace.onDidChangeTextDocument(event => {
         if (activeEditor && event.document === activeEditor.document) {
             triggerUpdateDecorations();
         }
-    }, null, context.subscriptions);
+    });
 
+    // trigger call update decoration
     var timeout;
     function triggerUpdateDecorations() {
         if (timeout) {
