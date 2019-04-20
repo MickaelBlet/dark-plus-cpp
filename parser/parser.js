@@ -1,23 +1,17 @@
 const vscode = require("vscode");
 class Parser
 {
-    constructor()
+    constructor(activeEditor, decoration)
     {
-        this.activeEditor;
+        this.activeEditor = activeEditor;
         this.text;
-        this.options;
-        this.decoration;
+        this.decoration = decoration;
         this.ranges = [];
-        this.rangeParenthesis;
-        this.rangeBraces;
-        this.init();
     }
 
-    init()
+    init(decoration)
     {
-        this.contributions = vscode.workspace.getConfiguration('mblet-syntax');
-        this.options = this.contributions.parameters;
-        this.decoration = vscode.window.createTextEditorDecorationType(this.options);
+        this.decoration = decoration;
     }
 
     setRange(str,start,end)
@@ -298,19 +292,23 @@ class Parser
         }
     }
 
-    FindFunctions(activeEditor)
+    Reset()
     {
-        // reset last range
         this.ranges.length = 0;
-        // set Active Editor
-        this.activeEditor = activeEditor;
+        this.activeEditor.setDecorations(this.decoration, this.ranges);
+    }
+
+    FindFunctions()
+    {
         // replace by spaces
         this.text = this.replaceCommentsAndStrings(this.activeEditor.document.getText());
 
         this.hightlightFunctions();
 
         // slow function
-        activeEditor.setDecorations(this.decoration, this.ranges);
+        this.activeEditor.setDecorations(this.decoration, this.ranges);
+        // reset range
+        this.ranges.length = 0;
     }
 }
 exports.Parser = Parser;
