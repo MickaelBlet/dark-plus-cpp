@@ -31,17 +31,18 @@
 		}],
 		"grammars": [{
 			"language" : "c",
-			"scopeName": "source.c",
+			"scopeName": "mblet.source.c",
 			"path"     : "./syntaxes/c.tmLanguage.json"
 		},
 		{
 			"language" : "cpp",
-			"scopeName": "source.cpp",
+			"scopeName": "mblet.source.cpp",
 			"path"     : "./syntaxes/cpp.tmLanguage.json"
 		},
 		{
 			"language" : "cpp",
-			"scopeName": "mblet.syntax",
+            "scopeName": "mblet.syntax",
+            "injectTo": ["mblet.source.cpp", "mblet.source.c"],
 			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
         }],
         "configuration":{

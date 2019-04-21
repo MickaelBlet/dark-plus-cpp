@@ -16,7 +16,7 @@
             "include": "#access"
         },
         {
-            "include": "source.cpp"
+            "include": "mblet.source.cpp"
         },
         {
             "include": "#return-types"

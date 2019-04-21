@@ -6,7 +6,7 @@
     ],
     "version": "https://github.com/atom/language-c/commit/3a269f88b12e512fb9495dc006a1dabf325d3d7f",
     "name": "C++",
-    "scopeName": "source.cpp",
+    "scopeName": "mblet.source.cpp",
     "patterns": [
         {
             "include": "#special_block"
