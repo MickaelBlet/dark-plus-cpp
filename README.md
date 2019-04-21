@@ -1,3 +1,5 @@
 # MBLET CPP SYNTAX
 
-<img src="./BeforeAfter.png" >
+<p align="center">
+  <img src="./BeforeAfter.png" >
+</p>
