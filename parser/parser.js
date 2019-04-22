@@ -58,76 +58,13 @@ class Parser {
         let start = 0;
         let end = 0;
 
-        // remove '\\'
-        for (let i = 1 ; i < text.length ; i++) {
-            if (text[i] == "\\" && text[i - 1] == "\\") {
-                text = this.replaceBySpace(text, i - 1, i + 1);
-            }
+        function replacer(str, offset, input) {
+            return ' '.repeat(str.length);
         }
-        let inChar = false;
-        let inString = false;
-        let inCommentLine = false;
-        let inCommentBlock = false;
-        let inDefine = false;
-        for (let i = 1 ; i < text.length ; i++) {
-            if (inChar || inString || inCommentLine || inCommentBlock || inDefine) {
-                // end char
-                if (inChar && text[i] == "\'" && text[i - 1] != "\\") {
-                    inChar = false;
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
-                }
-                // end string
-                else if (inString && text[i] == "\"" && text[i - 1] != "\\") {
-                    inString = false;
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
-                }
-                // end comment
-                else if (inCommentLine && text[i] == "\n" && text[i - 1] != "\\") {
-                    inCommentLine = false;
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
-                }
-                // end comment block
-                else if (inCommentBlock && text[i] == "/" && text[i - 1] == "*") {
-                    inCommentBlock = false;
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
-                }
-                // end define
-                else if (inDefine && text[i] == "\n" && text[i - 1] != "\\") {
-                    inDefine = false;
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
-                }
-            }
-            // start char
-            else if (text[i] == "\'" && text[i - 1] != "\\") {
-                inChar = true;
-                start = i;
-            }
-            // start string
-            else if (text[i] == "\"" && !inString && text[i - 1] != "\\") {
-                inString = true;
-                start = i;
-            }
-            // start comment
-            else if (text[i] == "/" && text[i - 1] == "/") {
-                inCommentLine = true;
-                start = i;
-            }
-            // start comment block
-            else if (text[i] == "*" && text[i - 1] == "/") {
-                inCommentBlock = true;
-                start = i;
-            }
-            // start define
-            else if (text[i] == "#" && text[i - 1] != "\\") {
-                inDefine = true;
-                start = i;
-            }
-        }
+
+        text = text.replace(/\\\\(?<!$)/gm, replacer);
+        text = text.replace(/\\.|"[^]*?(?:(?<!\\)")|'[^]*?(?:(?<!\\)')|\/\*[^]*?\*\/|\/\/[^]*?(?:(?<!\\)\n)|#[^]*?(?:(?<!\\)\n)/gm, replacer);
+
         return text;
     }
 
