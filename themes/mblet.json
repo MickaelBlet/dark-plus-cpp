@@ -13,6 +13,15 @@
                 "foreground": "#d5b734",
                 "fontStyle" : "bold"
 			}
+        },
+        {
+            "name" : "private_member",
+			"scope": [
+                "mblet_private_member"
+            ],
+			"settings": {
+                "fontStyle": "italic"
+			}
         }
     ]
 }

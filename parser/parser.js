@@ -55,16 +55,16 @@ class Parser {
 
     // replace all expect by space
     replaceCommentsAndStrings(text) {
-        let start = 0;
-        let end = 0;
-
+        // replacer common
         function replacer(str, offset, input) {
             return ' '.repeat(str.length);
         }
-
+        // replace all \\
         text = text.replace(/\\\\(?<!$)/gm, replacer);
-        text = text.replace(/\\.|"[^]*?(?:(?<!\\)")|'[^]*?(?:(?<!\\)')|\/\*[^]*?\*\/|\/\/[^]*?(?:(?<!\\)\n)|#[^]*?(?:(?<!\\)\n)/gm, replacer);
-
+        // replace all containers
+        text = text.replace(/"[^]*?(?:(?<!\\)")|'[^]*?(?:(?<!\\)')|\/\*[^]*?\*\/|\/\/[^]*?(?:(?<!\\)$)/gm, replacer);
+        // replace define line
+        text = text.replace(/#[^]*?(?:(?<!\\)$)/gm, replacer);
         return text;
     }
 
@@ -73,17 +73,19 @@ class Parser {
         let level = 0;
         let start;
         let end;
-        for (let i = 0 ; i < text.length ; i++) {
-            if (text[i] == "<") {
-                level++;
-                if (level == 1)
-                    start = i;
-            }
-            else if (text[i] == ">") {
-                level--;
-                if (level == 0) {
-                    end = i;
-                    text = this.replaceBySpace(text,start,end);
+        if (/[<]/gmi.test(text)) {
+            for (let i = 0 ; i < text.length ; i++) {
+                if (text[i] == "<") {
+                    level++;
+                    if (level == 1)
+                        start = i;
+                }
+                else if (text[i] == ">") {
+                    level--;
+                    if (level == 0) {
+                        end = i;
+                        text = this.replaceBySpace(text,start,end+1);
+                    }
                 }
             }
         }
@@ -91,12 +93,11 @@ class Parser {
     }
 
     getOpenParenthesisIndex(index) {
-        for (let i = index ; i < this.text.length ; i++) {
-            if (this.text[i] == "(") {
-                return i;
-            }
+        let i = this.text.indexOf("(", index);
+        if (i < 0) {
+            return null;
         }
-        return null;
+        return i;
     }
 
     getCloseParenthesisIndex(index) {
@@ -147,9 +148,7 @@ class Parser {
     searchPrototypes(start, end) {
         let words = [];
 
-        let regexString = "([a-z_A-Z0-9<>]+\\s*[&*]*\\s*)\\b([a-z_A-Z][a-z_A-Z0-9]*)\\s*(?:,|=[^,]*(?:,|$)|$)\\s*";
-        let regEx = new RegExp(regexString, "gm");
-
+        let regEx = /([a-z_A-Z0-9<>]+\s*[&*]*\s*)\b([a-z_A-Z][a-z_A-Z0-9]*)\s*(?:,|=[^,]*(?:,|$)|$)\s*/gm;
         let text = this.text.substr(start, end - start);
         text = this.containerHidden(text);
         let search;
@@ -172,7 +171,7 @@ class Parser {
             return ;
         }
         // generate regex for all parameters names
-        let regexString = "\\b(";
+        let regexString = "(?<![.]|->|::)\\b(";
         regexString += words.join("|");
         regexString += ")\\b[^(]";
         let regEx = new RegExp(regexString, "gm");

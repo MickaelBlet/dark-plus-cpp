@@ -1,5 +1,5 @@
 {
-	"name"       : "mblet-syntax-cpp-syntax-cpp",
+	"name"       : "mblet-syntax-cpp",
 	"displayName": "mblet-syntax-cpp",
 	"description": "Add simply syntax for C++ language",
 	"version"    : "1.0.0",
@@ -41,7 +41,7 @@
 		},
 		{
 			"language" : "cpp",
-            "scopeName": "mblet.syntax",
+            "scopeName": "mblet.cpp",
             "injectTo": ["mblet.source.cpp", "mblet.source.c"],
 			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
         }],

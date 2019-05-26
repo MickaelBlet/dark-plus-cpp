@@ -4,7 +4,7 @@
     ],
     "version"  : "",
     "name"     : "syntax C++",
-    "scopeName": "mblet.syntax",
+    "scopeName": "mblet.cpp",
     "patterns" : [
         {
             "include": "#operator"
@@ -25,13 +25,16 @@
             "include": "#return-types-operator"
         },
         {
+            "include": "#private-member"
+        },
+        {
             "include": "#variable-types"
         }
     ],
     "repository": {
         "operator": {
             "name" : "mblet_operator.syntax",
-            "match": "(?!//|/\\*)(\\+|\\-|\\*|\\/|\\%|\\!|\\=|&&|\\|\\|)"
+            "match": "(?!//|/\\*)(\\+|\\-|\\*|\\/|\\%|\\!|\\=|&&|[|][|])"
         },
         "parent": {
             "captures": {
@@ -45,7 +48,7 @@
                     "name": "variable.other.member.syntax"
                 }
             },
-            "match": "([a-zA-Z_][a-zA-Z_0-9]*)\\b\\s*(::)\\s*(?!(?:catch|operator|try|throw|using))(([a-zA-Z_][a-zA-Z_0-9]*)\\b(?!\\s*\\())?"
+            "match": "([a-zA-Z_][a-zA-Z_0-9]*)\\b\\s*(::)\\s*([a-zA-Z_][a-zA-Z_0-9]*\\b(?!\\s*\\())?"
         },
         "access": {
             "captures": {
@@ -61,7 +64,7 @@
         "return-types": {
             "captures": {
                 "1": {
-                    "name": "entity.name.type.cpp"
+                    "name": "entity.name.type"
                 },
                 "2": {
                     "name": "storage.modifier.c"
@@ -75,7 +78,7 @@
         "return-types-operator": {
             "captures": {
                 "1": {
-                    "name": "entity.name.type.cpp"
+                    "name": "entity.name.type"
                 },
                 "2": {
                     "name": "storage.modifier.c"
@@ -84,23 +87,22 @@
                     "name": "keyword.control.cpp"
                 }
             },
-            "match": "((?:(?:(?:[a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s)*(?:&|&&)?\\s*\\**\\s*(catch|operator|try|throw|using)"
+            "match": "((?:(?:(?:[a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*))(?:(const|extern|register|restrict|static|volatile|inline)\\s)*(?:&|&&)?\\s*\\**\\s*(?=catch|operator|try|throw|using)"
         },
         "variable-types": {
             "captures": {
                 "1": {
-                    "name": "entity.name.type.cpp"
+                    "name": "entity.name.type"
                 },
                 "2": {
                     "name": "storage.modifier.c"
                 }
             },
-            "match": "(?:(?:([a-zA-Z_][a-zA-Z_0-9]*)\\b)\\s*)(?:(const|extern|register|restrict|static|volatile|inline)\\s+)*(?:&|&&)?\\s*\\**\\s*(?:[A-Za-z_][A-Za-z0-9_]*)\\b",
-            "patterns": [
-				{
-					"include": "#meta.function.c"
-				}
-			]
+            "match": "(\\b[a-zA-Z_][a-zA-Z_0-9]*\\b)\\s*(?:(const|extern|register|restrict|static|volatile|inline)\\s+)*(?:&|&&)?\\s*\\**\\s*(?=(?:[A-Za-z_][A-Za-z0-9_]*\\b\\s*)[,=)>;:])"
+        },
+        "private-member": {
+            "name" : "mblet_private_member.syntax",
+            "match": "\\b(?!__)_\\w+\\b"
         }
     }
 }
