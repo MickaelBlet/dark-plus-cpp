@@ -89,6 +89,22 @@ class Parser {
                 }
             }
         }
+        if (/[{]/gmi.test(text)) {
+            for (let i = 0 ; i < text.length ; i++) {
+                if (text[i] == "{") {
+                    level++;
+                    if (level == 1)
+                        start = i;
+                }
+                else if (text[i] == "}") {
+                    level--;
+                    if (level == 0) {
+                        end = i;
+                        text = this.replaceBySpace(text,start,end+1);
+                    }
+                }
+            }
+        }
         return text;
     }
 
@@ -101,15 +117,21 @@ class Parser {
     }
 
     getCloseParenthesisIndex(index) {
+        let isClose = false;
         let level = 0;
         for (let i = index ; i < this.text.length ; i++) {
-            if (level == 0 && this.text[i] == ")") {
+            if (level == 1 && this.text[i] == ")") {
+                isClose = true;
+                level = 0;
+            }
+            else if (isClose === true && (this.text[i] == ":" || this.text[i] == "{" || this.text[i] == ";")) {
                 return i;
             }
             else if (level > 0 && this.text[i] == ")") {
                 level--;
             }
             else if (this.text[i] == "(") {
+                isClose = false;
                 level++;
             }
         }
@@ -148,7 +170,7 @@ class Parser {
     searchPrototypes(start, end) {
         let words = [];
 
-        let regEx = /([a-z_A-Z0-9<>]+\s*[&*]*\s*)\b([a-z_A-Z][a-z_A-Z0-9]*)\s*(?:,|=[^,]*(?:,|$)|$)\s*/gm;
+        let regEx = /([a-z_A-Z0-9<>]+\s*[&*]*\s*(?:[(][&*]*)?)\b([a-z_A-Z][a-z_A-Z0-9]*)\s*(?:,|=[^,]*(?:,|[)(])|[)(])\s*/gm;
         let text = this.text.substr(start, end - start);
         text = this.containerHidden(text);
         let search;
@@ -194,7 +216,7 @@ class Parser {
         let endParenthesis = 0;
         let startParenthesis;
         while (startParenthesis = this.getOpenParenthesisIndex(endParenthesis)) {
-            endParenthesis = this.getCloseParenthesisIndex(++startParenthesis);
+            endParenthesis = this.getCloseParenthesisIndex(startParenthesis);
             if (endParenthesis == null) {
                 return ;
             }
