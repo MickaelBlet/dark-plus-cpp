@@ -170,7 +170,7 @@ class Parser {
     searchPrototypes(start, end) {
         let words = [];
 
-        let regEx = /([a-z_A-Z0-9<>]+\s*[&*]*\s*(?:[(][&*]*)?)\b([a-z_A-Z][a-z_A-Z0-9]*)\s*(?:,|=[^,]*(?:,|[)(])|[)(])\s*/gm;
+        let regEx = /([a-z_A-Z0-9<>]+\s*[&*]*\s*(?:[(][&*]*)?)\b([a-z_A-Z][a-z_A-Z0-9]*)\s*(?:,|=[^,]*(?:,|[)(])|\[[^\]]*\]|[)(])\s*/gm;
         let text = this.text.substr(start, end - start);
         text = this.containerHidden(text);
         let search;
