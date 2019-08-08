@@ -1,27 +1,27 @@
 {
-	"$schema"    : "vscode://schemas/color-theme",
-	"name"       : "Dark+ (default dark) (mblet)",
-	"include"    : "./dark_plus.json",
-	"tokenColors": [
+    "$schema"    : "vscode://schemas/color-theme",
+    "name"       : "Dark+ (default dark) (mblet)",
+    "include"    : "./dark_plus.json",
+    "tokenColors": [
         {
-			"name" : "operator",
-			"scope": [
+            "name" : "operator",
+            "scope": [
                 "mblet_operator",
                 "mblet_doubleDoubleDot"
             ],
-			"settings": {
+            "settings": {
                 "foreground": "#d5b734",
                 "fontStyle" : "bold"
-			}
+            }
         },
         {
             "name" : "private_member",
-			"scope": [
+            "scope": [
                 "mblet_private_member"
             ],
-			"settings": {
+            "settings": {
                 "fontStyle": "italic"
-			}
+            }
         }
     ]
 }
