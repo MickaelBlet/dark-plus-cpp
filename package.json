@@ -33,7 +33,13 @@
 			"language" : "c",
 			"scopeName": "mblet.source.c",
 			"path"     : "./syntaxes/c.tmLanguage.json"
-		},
+        },
+        {
+			"language" : "c",
+            "scopeName": "mblet.cpp",
+            "injectTo": ["mblet.source.cpp", "mblet.source.c"],
+			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
+        },
 		{
 			"language" : "cpp",
 			"scopeName": "mblet.source.cpp",
