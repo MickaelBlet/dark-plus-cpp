@@ -22,6 +22,9 @@ class Parser {
         if (!activeEditor) {
             return ;
         }
+        if (activeEditor.document.languageId != "c" && activeEditor.document.languageId != "cpp") {
+            return ;
+        }
         // reset range
         this.ranges.length = 0;
         // disable old decoration
@@ -30,6 +33,9 @@ class Parser {
 
     updateDecorations(activeEditor) {
         if (!activeEditor) {
+            return ;
+        }
+        if (activeEditor.document.languageId != "c" && activeEditor.document.languageId != "cpp") {
             return ;
         }
         this.activeEditor = activeEditor;
@@ -65,6 +71,8 @@ class Parser {
         text = text.replace(/"[^]*?(?:(?<!\\)")|'[^]*?(?:(?<!\\)')|\/\*[^]*?\*\/|\/\/[^]*?(?:(?<!\\)$)/gm, replacer);
         // replace define line
         text = text.replace(/#[^]*?(?:(?<!\\)$)/gm, replacer);
+        // replace compiler macro
+        text = text.replace(/__[a-zA_Z]+__[^)]*[)\s]*/gm, replacer);
         return text;
     }
 
