@@ -1,55 +1,43 @@
 {
-	"name"       : "mblet-syntax-cpp",
-	"displayName": "mblet-syntax-cpp",
-	"description": "Add simply syntax for C++ language",
-	"version"    : "1.0.0",
-	"publisher"  : "mblet",
+    "name"       : "mblet-syntax-cpp",
+    "displayName": "mblet-syntax-cpp",
+    "description": "Add simply syntax for C++ language",
+    "version"    : "1.0.0",
+    "publisher"  : "mblet",
     "engines"    : { "vscode": "^1.25.0" },
     "main"       : "./extension.js",
     "activationEvents": [
         "onLanguage:cpp",
-		"onLanguage:c"
-	],
-	"contributes": {
+        "onLanguage:c"
+    ],
+    "contributes": {
         "themes": [
-			{
-				"id"     : "Default Dark+ mblet",
-				"label"  : "Dark+ (default dark) (mblet)",
-				"uiTheme": "vs-dark",
-				"path"   : "./themes/mblet.json"
-			}
-		],
-		"languages": [{
-			"id"           : "c",
-			"extensions"   : [ ".c"],
-			"aliases"      : [ "C", "c" ]
-		},
-		{
-			"id"           : "cpp",
-			"extensions"   : [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
-			"aliases"      : [ "C++", "Cpp", "cpp"]
-		}],
-		"grammars": [{
-			"language" : "c",
-			"scopeName": "mblet.source.c",
-			"path"     : "./syntaxes/c.tmLanguage.json"
+            {
+                "id"     : "Default Dark+ mblet",
+                "label"  : "Dark+ (default dark) (mblet)",
+                "uiTheme": "vs-dark",
+                "path"   : "./themes/mblet.json"
+            }
+        ],
+        "languages": [{
+            "id"           : "c",
+            "extensions"   : [ ".c"],
+            "aliases"      : [ "C", "c" ]
         },
         {
-			"language" : "c",
-            "scopeName": "mblet.cpp",
-            "injectTo": ["mblet.source.cpp", "mblet.source.c"],
-			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
+            "id"           : "cpp",
+            "extensions"   : [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
+            "aliases"      : [ "C++", "Cpp", "cpp"]
+        }],
+        "grammars": [{
+            "language" : "c",
+            "scopeName": "mblet.source.cpp",
+            "path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
         },
-		{
-			"language" : "cpp",
-			"scopeName": "mblet.source.cpp",
-			"path"     : "./syntaxes/cpp.tmLanguage.json"
-		},
-		{
-			"language" : "cpp",
-            "scopeName": "mblet.cpp",
-            "injectTo": ["mblet.source.cpp", "mblet.source.c"],
-			"path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
+        {
+            "language" : "cpp",
+            "scopeName": "mblet.source.cpp",
+            "path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
         }],
         "configuration":{
             "title": "mblet syntax configuration",

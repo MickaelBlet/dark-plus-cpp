@@ -6,8 +6,9 @@
         {
             "name" : "operator",
             "scope": [
-                "mblet_operator",
-                "mblet_doubleDoubleDot"
+                "keyword.operator.comparison.cpp",
+                "storage.modifier.reference.cpp",
+                "storage.modifier.pointer.cpp"
             ],
             "settings": {
                 "foreground": "#d5b734",
@@ -21,6 +22,16 @@
             ],
             "settings": {
                 "fontStyle": "italic"
+            }
+        },
+        {
+            "name": "access",
+            "scope": [
+                "variable.other.object.declare.cpp",
+                "variable.other.object.access.cpp"
+            ],
+            "settings": {
+                "foreground": "#d4d4d4ff"
             }
         }
     ]
