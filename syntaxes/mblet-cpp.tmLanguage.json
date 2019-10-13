@@ -20,9 +20,6 @@
   ],
   "patterns":[
       {
-          "include":"#variable_type"
-      },
-      {
           "include":"#ever_present_context"
       },
       {
@@ -1197,9 +1194,6 @@
       "function_body_context":{
           "patterns":[
               {
-                  "include":"#variable_type"
-              },
-              {
                   "include":"#ever_present_context"
               },
               {
@@ -1251,6 +1245,9 @@
                   "include":"#static_assert"
               },
               {
+                  "include":"#variable_type"
+              },
+              {
                   "include":"#assembly"
               },
               {
@@ -1272,9 +1269,6 @@
       },
       "evaluation_context":{
           "patterns":[
-              {
-                  "include":"#variable_type"
-              },
               {
                   "include":"#ever_present_context"
               },
@@ -1346,6 +1340,9 @@
               },
               {
                   "include":"#scope_resolution_inner_generated"
+              },
+              {
+                "include":"#variable_type"
               },
               {
                   "include":"#square_brackets"

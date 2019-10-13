@@ -16,15 +16,6 @@
             }
         },
         {
-            "name" : "private_member",
-            "scope": [
-                "mblet_private_member"
-            ],
-            "settings": {
-                "fontStyle": "italic"
-            }
-        },
-        {
             "name": "access",
             "scope": [
                 "variable.other.object.declare.cpp",
