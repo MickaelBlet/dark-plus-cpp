@@ -2,10 +2,14 @@
     "name"       : "mblet-syntax-cpp",
     "displayName": "mblet-syntax-cpp",
     "description": "Add simply syntax for C++ language",
-    "version"    : "1.0.0",
+    "version"    : "0.1.0",
     "publisher"  : "mblet",
     "engines"    : { "vscode": "^1.25.0" },
     "main"       : "./extension.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MickaelBlet/syntax-cpp.git"
+      },
     "activationEvents": [
         "onLanguage:cpp",
         "onLanguage:c"
