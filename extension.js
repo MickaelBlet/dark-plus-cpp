@@ -3,7 +3,7 @@ const parser_1 = require("./parser/parser");
 
 function activate(context) {
     let activeEditor;
-    let contributions = vscode.workspace.getConfiguration('mblet-syntax');
+    let contributions = vscode.workspace.getConfiguration('highlight-parameter-cpp');
     let parser = new parser_1.Parser(contributions);
 
     // function call by triggerUpdateDecorations
@@ -29,7 +29,7 @@ function activate(context) {
 
     // event configuration change
     vscode.workspace.onDidChangeConfiguration(event => {
-        contributions = vscode.workspace.getConfiguration('mblet-syntax');
+        contributions = vscode.workspace.getConfiguration('highlight-parameter-cpp');
         let textEditors = vscode.window.visibleTextEditors;
         for (let i = 0 ; i < textEditors.length ; i++) {
             parser.resetDecorations(textEditors[i]);
@@ -69,7 +69,7 @@ function activate(context) {
         if (timeout) {
             clearTimeout(timeout);
         }
-        timeout = setTimeout(updateDecorations, contributions.setTimeout);
+        timeout = setTimeout(updateDecorations, contributions.timeout);
     }
 }
 
