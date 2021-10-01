@@ -1,72 +1,108 @@
 {
-    "name"       : "mblet-syntax-cpp",
-    "displayName": "mblet-syntax-cpp",
-    "description": "Add simply syntax for C++ language",
-    "version"    : "0.1.0",
-    "publisher"  : "mblet",
-    "engines"    : { "vscode": "^1.25.0" },
-    "main"       : "./extension.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/MickaelBlet/syntax-cpp.git"
-      },
-    "activationEvents": [
-        "onLanguage:cpp",
-        "onLanguage:c"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "id"     : "Default Dark+ mblet",
-                "label"  : "Dark+ (default dark) (mblet)",
-                "uiTheme": "vs-dark",
-                "path"   : "./themes/mblet.json"
-            }
-        ],
-        "languages": [{
-            "id"           : "c",
-            "extensions"   : [ ".c"],
-            "aliases"      : [ "C", "c" ]
-        },
-        {
-            "id"           : "cpp",
-            "extensions"   : [ ".cpp", ".cc", ".cxx", ".hpp", ".hh", ".hxx", ".h", ".ino", ".inl", ".ipp" ],
-            "aliases"      : [ "C++", "Cpp", "cpp"]
-        }],
-        "grammars": [{
-            "language" : "c",
-            "scopeName": "mblet.source.cpp",
-            "path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
-        },
-        {
-            "language" : "cpp",
-            "scopeName": "mblet.source.cpp",
-            "path"     : "./syntaxes/mblet-cpp.tmLanguage.json"
-        }],
-        "configuration":{
-            "title": "mblet syntax configuration",
-            "properties": {
-                "mblet-syntax.parameters": {
-                    "type": "object",
-                    "description": "set css of parameters",
-                    "default": {
-                        "color": "#999999",
-                        "backgroundColor": "transparent",
-                        "fontStyle": "italic"
-                    }
-                },
-                "mblet-syntax.setTimeout": {
-                    "type": "integer",
-                    "description": "set timeout after applicate decorations",
-                    "default": 200
-                }
-            }
-        }
-    },
-    "devDependencies": {
-        "vscode": "^1.1.22"
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    }
+	"name": "Highlight parameter C/C++",
+	"displayName": "Highlight Parameter C/C++",
+	"description": "Highlight parameter for C/C++ language",
+	"version": "0.2.0",
+	"publisher": "Mickaël BLET",
+	"engines": {
+		"vscode": "^1.0.0"
+	},
+	"main": "./extension.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MickaelBlet/syntax-cpp.git"
+	},
+	"activationEvents": [
+		"onLanguage:cpp",
+		"onLanguage:c"
+	],
+	"contributes": {
+		"themes": [
+			{
+				"id": "Default Dark+ mblet",
+				"label": "Dark+ (default dark) (mblet)",
+				"uiTheme": "vs-dark",
+				"path": "./themes/mblet.json"
+			}
+		],
+		"languages": [
+			{
+				"id": "c",
+				"extensions": [
+					".c"
+				],
+				"aliases": [
+					"C",
+					"c"
+				]
+			},
+			{
+				"id": "cpp",
+				"extensions": [
+					".cpp",
+					".cc",
+					".cxx",
+					".hpp",
+					".hh",
+					".hxx",
+					".h",
+					".ino",
+					".inl",
+					".ipp"
+				],
+				"aliases": [
+					"C++",
+					"Cpp",
+					"cpp"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "c",
+				"scopeName": "mblet.source.cpp",
+				"path": "./syntaxes/mblet-cpp.tmLanguage.json"
+			},
+			{
+				"language": "cpp",
+				"scopeName": "mblet.source.cpp",
+				"path": "./syntaxes/mblet-cpp.tmLanguage.json"
+			}
+		],
+		"configuration": {
+			"title": "HighLight parameter configuration",
+			"properties": {
+				"highlight-parameter-cpp.parameterCss": {
+					"type": "object",
+					"description": "set css of parameters (https://code.visualstudio.com/api/references/vscode-api#ThemableDecorationRenderOptions)",
+					"default": {
+						"color": "#999999",
+						"backgroundColor": "transparent",
+						"fontStyle": "italic"
+					}
+				},
+				"highlight-parameter-cpp.unusedParameterCss": {
+					"type": "object",
+					"description": "set css of unused parameters (https://code.visualstudio.com/api/references/vscode-api#ThemableDecorationRenderOptions)",
+					"default": {
+						"color": "#990000",
+						"backgroundColor": "transparent",
+						"fontStyle": "italic"
+					}
+				},
+				"highlight-parameter-cpp.timeout": {
+					"type": "integer",
+					"description": "set timeout after applicate decorations",
+					"default": 100
+				}
+			}
+		}
+	},
+	"devDependencies": {
+		"vscode": "^1.0.0"
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"__metadata": {}
 }
