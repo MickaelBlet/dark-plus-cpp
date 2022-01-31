@@ -5,7 +5,7 @@ struct Custom {
 };
 
 int main(int argc, char **argv) {
-    Custom  newType; // Type
+    Custom newType; // Type
 
     newType.child = 42;
     std::cout << "Namespace and child: " << newType.child << std::endl;
