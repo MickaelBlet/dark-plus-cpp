@@ -1150,8 +1150,7 @@
                 "storage.modifier.pointer.cpp"
             ],
             "settings": {
-                "foreground": "#D5B734",
-                "fontStyle": "bold"
+                "foreground": "#D5B734"
             }
         },
         {
