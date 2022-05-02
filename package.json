@@ -1,8 +1,8 @@
 {
-    "name": "mblet-syntax-cpp",
-    "displayName": "mblet-syntax-cpp",
-    "description": "Add simply syntax for C++ language",
-    "version": "0.1.2",
+    "name": "dark-plus-cpp",
+    "displayName": "Dark+ C++",
+    "description": "Theme for C++ language",
+    "version": "0.1.3",
     "publisher": "mblet",
     "engines": {
         "vscode": "^0.0.0"
@@ -18,54 +18,10 @@
     "contributes": {
         "themes": [
             {
-                "id": "Default Dark+ mblet",
-                "label": "Dark+ (default dark) (mblet)",
+                "id": "Dark+ c++ - mblet",
+                "label": "Dark+ c++ - mblet",
                 "uiTheme": "vs-dark",
-                "path": "./themes/dark_plus_mblet.json"
-            }
-        ],
-        "languages": [
-            {
-                "id": "c",
-                "extensions": [
-                    ".c"
-                ],
-                "aliases": [
-                    "C",
-                    "c"
-                ]
-            },
-            {
-                "id": "cpp",
-                "extensions": [
-                    ".cpp",
-                    ".cc",
-                    ".cxx",
-                    ".hpp",
-                    ".hh",
-                    ".hxx",
-                    ".h",
-                    ".ino",
-                    ".inl",
-                    ".ipp"
-                ],
-                "aliases": [
-                    "C++",
-                    "Cpp",
-                    "cpp"
-                ]
-            }
-        ],
-        "grammars": [
-            {
-                "language": "c",
-                "scopeName": "mblet.source.cpp",
-                "path": "./syntaxes/cpp.tmLanguage.json"
-            },
-            {
-                "language": "cpp",
-                "scopeName": "mblet.source.cpp",
-                "path": "./syntaxes/cpp.tmLanguage.json"
+                "path": "./themes/dark_plus_cpp.json"
             }
         ]
     }
