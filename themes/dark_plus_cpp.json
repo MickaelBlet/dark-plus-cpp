@@ -1210,22 +1210,22 @@
             }
         },
         {
-            "scope": "variable.parameter",
+            "scope": "variable.parameter.cpp",
             "settings": {
                 "foreground": "#999999",
                 "fontStyle": "italic"
             }
         },
         {
-            "scope": "variable.other.local",
+            "scope": "variable.other.local.cpp",
             "settings": {
                 "foreground": "#D4D4D4"
             }
         },
         {
             "scope": [
-                "punctuation.separator.delimiter.comma",
-                "punctuation.terminator.statement",
+                "punctuation.separator.delimiter.comma.cpp",
+                "punctuation.terminator.statement.cpp",
                 "punctuation.section.angle-brackets.start.template.definition.cpp",
                 "punctuation.section.angle-brackets.end.template.definition.cpp"
             ],
@@ -1234,13 +1234,13 @@
             }
         },
         {
-            "scope": "entity.name.function.preprocessor",
+            "scope": "entity.name.function.preprocessor.cpp",
             "settings": {
                 "foreground": "#DCDCAA"
             }
         },
         {
-            "scope": "string.quoted.other.lt-gt.include",
+            "scope": "string.quoted.other.lt-gt.include.cpp",
             "settings": {
                 "foreground": "#DEA188"
             }

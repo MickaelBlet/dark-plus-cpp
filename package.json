@@ -2,7 +2,7 @@
     "name": "dark-plus-cpp",
     "displayName": "Dark+ C++",
     "description": "Theme for C++ language",
-    "version": "0.1.4",
+    "version": "0.1.6",
     "publisher": "mblet",
     "engines": {
         "vscode": "^0.0.0"
@@ -10,7 +10,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/MickaelBlet/syntax-cpp.git"
+        "url": "https://github.com/MickaelBlet/dark-plus-cpp.git"
     },
     "categories": [
         "Themes"
