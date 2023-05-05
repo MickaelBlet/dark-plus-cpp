@@ -2,7 +2,7 @@
     "name": "dark-plus-cpp",
     "displayName": "Dark+ C++",
     "description": "Theme for C++ language",
-    "version": "0.1.8",
+    "version": "0.2.0",
     "publisher": "mblet",
     "engines": {
         "vscode": "^0.0.0"
@@ -23,6 +23,12 @@
                 "label": "Dark+ c++ - mblet",
                 "uiTheme": "vs-dark",
                 "path": "./themes/dark_plus_cpp.json"
+            },
+            {
+                "id": "Dark Modern c++ - mblet",
+                "label": "Dark Modern c++ - mblet",
+                "uiTheme": "vs-dark",
+                "path": "./themes/dark_modern_cpp.json"
             }
         ]
     }
